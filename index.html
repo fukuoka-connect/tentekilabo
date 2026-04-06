@@ -133,10 +133,12 @@ ul { list-style: none; }
   margin-bottom: 8px;
 }
 .text-center { text-align: center; }
+
+/* [2] Gold gradient decorative line */
 .gold-line {
-  width: 40px;
+  width: 60px;
   height: 2px;
-  background: var(--accent);
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
   margin: 0 auto 32px;
 }
 
@@ -151,7 +153,15 @@ ul { list-style: none; }
   transform: translateY(0);
 }
 
-/* ===== CTA Button ===== */
+/* ===== [1] SVG Wave Divider ===== */
+.wave-divider {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: -1px;
+}
+
+/* ===== [7] CTA Button with Shimmer ===== */
 .cta-btn {
   display: inline-flex;
   align-items: center;
@@ -169,6 +179,21 @@ ul { list-style: none; }
   transition: background var(--transition-on), transform var(--transition-on), box-shadow var(--transition-on);
   box-shadow: 0 4px 16px rgba(184,150,62,0.3);
   text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+.cta-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.6s ease;
+}
+.cta-btn:hover::before {
+  left: 100%;
 }
 .cta-btn:hover {
   background: var(--gold-grad-hover);
@@ -230,13 +255,16 @@ ul { list-style: none; }
   padding: 8px 20px;
 }
 
-/* ===== HERO ===== */
+/* ===== HERO [3] dot pattern + [10] gradient ===== */
 .hero {
   padding-top: 80px;
   min-height: 90vh;
   display: flex;
   align-items: center;
-  background: linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 100%);
+  background:
+    radial-gradient(circle, rgba(184,150,62,0.06) 1px, transparent 1px),
+    linear-gradient(180deg, #FAF7F2 0%, #F5EFE6 100%);
+  background-size: 24px 24px, 100% 100%;
   position: relative;
   overflow: hidden;
 }
@@ -319,6 +347,38 @@ ul { list-style: none; }
   color: var(--dark-sub);
   font-size: 0.85rem;
   border: 1px solid rgba(184,150,62,0.15);
+  position: relative;
+}
+
+/* [4] Blob decoration */
+.hero-blob {
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  border-radius: 55% 45% 48% 52% / 52% 58% 42% 48%;
+  background: linear-gradient(135deg, rgba(184,150,62,0.08) 0%, rgba(197,165,90,0.04) 100%);
+  animation: blobMorph 10s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+.hero-blob--1 {
+  top: 15%;
+  right: -60px;
+  width: 240px;
+  height: 240px;
+}
+.hero-blob--2 {
+  bottom: 10%;
+  left: -80px;
+  width: 200px;
+  height: 200px;
+  animation-delay: -5s;
+}
+@keyframes blobMorph {
+  0%, 100% { border-radius: 55% 45% 48% 52% / 52% 58% 42% 48%; }
+  25% { border-radius: 42% 58% 55% 45% / 48% 42% 58% 52%; }
+  50% { border-radius: 48% 52% 42% 58% / 55% 48% 52% 45%; }
+  75% { border-radius: 58% 42% 52% 48% / 42% 55% 45% 58%; }
 }
 
 /* ===== Concern / Empathy ===== */
@@ -349,7 +409,7 @@ ul { list-style: none; }
   margin-top: 2px;
 }
 
-/* ===== Service Overview ===== */
+/* ===== Service Overview [5] enhanced card shadow ===== */
 .services-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -360,15 +420,17 @@ ul { list-style: none; }
   background: var(--surface);
   border-radius: var(--radius);
   padding: 32px 24px;
-  box-shadow: var(--shadow);
+  box-shadow: 0 2px 8px rgba(61,51,41,0.04), 0 4px 24px rgba(61,51,41,0.06);
   border: 1px solid rgba(184,150,62,0.08);
   transition: transform var(--transition-on), box-shadow var(--transition-on);
   text-align: center;
 }
 .service-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
+  transform: translateY(-6px);
+  box-shadow: 0 8px 16px rgba(61,51,41,0.08), 0 16px 40px rgba(61,51,41,0.10);
 }
+
+/* [9] SVG icon container */
 .service-card-icon {
   width: 56px;
   height: 56px;
@@ -378,7 +440,16 @@ ul { list-style: none; }
   align-items: center;
   justify-content: center;
   margin: 0 auto 16px;
-  font-size: 1.4rem;
+  color: var(--accent);
+}
+.service-card-icon svg {
+  width: 28px;
+  height: 28px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 .service-card-title {
   font-family: var(--font-jp-serif);
@@ -432,7 +503,7 @@ ul { list-style: none; }
   margin-top: 3px;
 }
 
-/* ===== Price Table ===== */
+/* ===== Price Table [6] popular badge ===== */
 .price-table {
   width: 100%;
   border-collapse: collapse;
@@ -468,19 +539,22 @@ ul { list-style: none; }
 .price-table tr:last-child th,
 .price-table tr:last-child td { border-bottom: none; }
 .price-table .popular {
-  background: linear-gradient(90deg, rgba(184,150,62,0.06) 0%, rgba(197,165,90,0.03) 100%);
+  position: relative;
+  background: linear-gradient(90deg, rgba(184,150,62,0.08) 0%, rgba(197,165,90,0.04) 100%);
 }
 .price-table .popular th::after {
   content: ' No.1';
   display: inline-block;
-  background: var(--accent);
+  background: var(--gold-grad);
   color: #fff;
   font-size: 0.65rem;
-  padding: 1px 8px;
+  padding: 2px 10px;
   border-radius: 50px;
-  margin-left: 6px;
+  margin-left: 8px;
   vertical-align: middle;
   font-weight: 700;
+  letter-spacing: 0.05em;
+  box-shadow: 0 2px 6px rgba(184,150,62,0.25);
 }
 .price-original {
   text-decoration: line-through;
@@ -507,20 +581,36 @@ ul { list-style: none; }
   border-bottom: 2px solid var(--accent-pale);
 }
 
-/* ===== Mid CTA ===== */
+/* ===== Mid CTA [10] gold gradient bg ===== */
 .mid-cta {
-  background: linear-gradient(135deg, var(--bg-alt) 0%, #ede4d4 100%);
+  background: linear-gradient(135deg, #3D3329 0%, #2C2520 50%, #3D3329 100%);
+  color: #F5EFE6;
   text-align: center;
   padding: 60px 20px;
+  position: relative;
+  overflow: hidden;
+}
+.mid-cta::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(184,150,62,0.08) 0%, transparent 60%);
+  pointer-events: none;
 }
 .mid-cta-text {
   font-family: var(--font-jp-serif);
   font-size: 1.2rem;
   margin-bottom: 24px;
   line-height: 1.7;
+  position: relative;
 }
 
-/* ===== Trust ===== */
+/* ===== Trust [5] enhanced shadow ===== */
 .trust-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -532,8 +622,13 @@ ul { list-style: none; }
   border-radius: var(--radius);
   padding: 24px 16px;
   text-align: center;
-  box-shadow: var(--shadow);
+  box-shadow: 0 2px 8px rgba(61,51,41,0.04), 0 4px 24px rgba(61,51,41,0.06);
   border: 1px solid rgba(184,150,62,0.08);
+  transition: transform var(--transition-on), box-shadow var(--transition-on);
+}
+.trust-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(61,51,41,0.08), 0 16px 40px rgba(61,51,41,0.10);
 }
 .trust-item-icon {
   font-size: 1.6rem;
@@ -551,7 +646,7 @@ ul { list-style: none; }
   line-height: 1.6;
 }
 
-/* ===== Corporate Section ===== */
+/* ===== Corporate Section [8] enhanced gold line ===== */
 .corporate {
   background: var(--corporate-bg);
   color: var(--corporate-text);
@@ -564,8 +659,8 @@ ul { list-style: none; }
   top: 0;
   left: 0;
   right: 0;
-  height: 4px;
-  background: var(--gold-grad);
+  height: 3px;
+  background: linear-gradient(90deg, transparent 0%, var(--accent) 20%, var(--corporate-accent) 50%, var(--accent) 80%, transparent 100%);
 }
 .corporate .section-label { color: var(--corporate-accent); }
 .corporate .section-title { color: var(--corporate-text); }
@@ -825,9 +920,10 @@ ul { list-style: none; }
   font-weight: 600;
 }
 
-/* ===== Final CTA ===== */
+/* ===== [11] Final CTA - Dark & impactful ===== */
 .final-cta {
-  background: linear-gradient(135deg, var(--bg-alt) 0%, #e8ddd0 50%, var(--bg-alt) 100%);
+  background: linear-gradient(135deg, #3D3329 0%, #2C2520 50%, #3D3329 100%);
+  color: #F5EFE6;
   text-align: center;
   padding: 80px 20px;
   position: relative;
@@ -839,11 +935,14 @@ ul { list-style: none; }
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 500px;
-  height: 500px;
+  width: 600px;
+  height: 600px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(184,150,62,0.06) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(184,150,62,0.08) 0%, transparent 60%);
   pointer-events: none;
+}
+.final-cta .section-label {
+  color: var(--accent-light);
 }
 .final-cta-title {
   font-family: var(--font-jp-serif);
@@ -852,10 +951,11 @@ ul { list-style: none; }
   margin-bottom: 16px;
   position: relative;
   line-height: 1.6;
+  color: #F5EFE6;
 }
 .final-cta-sub {
   font-size: 0.92rem;
-  color: var(--dark-sub);
+  color: rgba(245,239,230,0.75);
   margin-bottom: 32px;
   position: relative;
 }
@@ -881,7 +981,7 @@ ul { list-style: none; }
   padding: 12px 24px;
 }
 
-/* ===== FOOTER ===== */
+/* ===== FOOTER [12] Instagram SVG ===== */
 .footer {
   background: var(--dark);
   color: rgba(245,239,230,0.7);
@@ -916,7 +1016,7 @@ ul { list-style: none; }
   transition: color var(--transition-on);
 }
 .footer-link:hover { color: var(--accent-light); opacity: 1; }
-.footer-link svg { width: 16px; height: 16px; fill: currentColor; }
+.footer-link svg { width: 18px; height: 18px; fill: currentColor; }
 .footer-copy {
   font-size: 0.7rem;
   color: rgba(245,239,230,0.35);
@@ -941,6 +1041,8 @@ ul { list-style: none; }
   .footer { padding-bottom: 80px; }
   .corporate-steps { gap: 10px; }
   .price-table th, .price-table td { padding: 10px 10px; font-size: 0.82rem; }
+  .wave-divider { height: 30px; }
+  .hero-blob { display: none; }
 }
 
 @media (max-width: 480px) {
@@ -970,6 +1072,9 @@ ul { list-style: none; }
 
 <!-- ===== HERO ===== -->
 <section class="hero" id="hero">
+  <!-- [4] Blob decorations -->
+  <div class="hero-blob hero-blob--1"></div>
+  <div class="hero-blob hero-blob--2"></div>
   <div class="container">
     <div class="hero-content fade-in">
       <p class="section-label">TENTEKILABO Shimabara</p>
@@ -988,6 +1093,11 @@ ul { list-style: none; }
     </div>
   </div>
 </section>
+
+<!-- [1] Wave: HERO → Concern -->
+<svg class="wave-divider" viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+  <path d="M0,30 C360,60 720,0 1440,30 L1440,60 L0,60Z" fill="#F5EFE6"/>
+</svg>
 
 <!-- ===== Concern ===== -->
 <section class="concern section-pad" id="concern">
@@ -1023,20 +1133,47 @@ ul { list-style: none; }
     <h2 class="section-title fade-in">3つ<span class="sm">の</span>トータルケア</h2>
     <div class="gold-line fade-in"></div>
     <div class="services-grid">
+      <!-- [9] SVG icons replacing emoji -->
       <div class="service-card fade-in">
-        <div class="service-card-icon">&#9998;</div>
+        <div class="service-card-icon">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 14c2-4 6-7 12-7s10 3 12 7" stroke-width="2"/>
+            <path d="M6 14c1.5-3 4.5-5.5 10-5.5s8.5 2.5 10 5.5" stroke-width="1" opacity="0.4"/>
+            <path d="M8 15c1-2 3.5-4 8-4s7 2 8 4" stroke-width="1.5"/>
+            <line x1="5" y1="10" x2="3" y2="7" stroke-width="1.5"/>
+            <line x1="27" y1="10" x2="29" y2="7" stroke-width="1.5"/>
+          </svg>
+        </div>
         <h3 class="service-card-title">眉アートメイク</h3>
         <p class="service-card-desc">韓国発最先端技法"手彫りパウダー"<span class="sm">で</span>mocci眉。骨格<span class="sm">に</span>合わせた自然<span class="sm">な</span>グラデーション<span class="sm">で</span>、毎朝<span class="sm">の</span>メイク時間<span class="sm">を</span>大幅短縮。</p>
         <a href="#eyebrow" class="service-card-link">詳しく見る &rarr;</a>
       </div>
       <div class="service-card fade-in">
-        <div class="service-card-icon">&#128167;</div>
+        <div class="service-card-icon">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="4" width="12" height="18" rx="2" stroke-width="1.5"/>
+            <line x1="16" y1="22" x2="16" y2="28" stroke-width="1.5"/>
+            <circle cx="16" cy="28" r="1" fill="currentColor" stroke="none"/>
+            <line x1="13" y1="9" x2="19" y2="9" stroke-width="1" opacity="0.5"/>
+            <line x1="13" y1="12" x2="19" y2="12" stroke-width="1" opacity="0.5"/>
+            <path d="M12 4 L12 2 L20 2 L20 4" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
         <h3 class="service-card-title">美容点滴・注射</h3>
         <p class="service-card-desc">美白・肌質改善・疲労回復・免疫力向上。内側<span class="sm">から</span>キレイ<span class="sm">と</span>健康<span class="sm">を</span>サポート。看護師<span class="sm">が</span>安全<span class="sm">に</span>施術。</p>
         <a href="#drip" class="service-card-link">詳しく見る &rarr;</a>
       </div>
       <div class="service-card fade-in">
-        <div class="service-card-icon">&#10024;</div>
+        <div class="service-card-icon">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="16" cy="14" rx="8" ry="10" stroke-width="1.5"/>
+            <path d="M12 10c0.5-1 2-2.5 4-2.5s3.5 1.5 4 2.5" stroke-width="1.2" fill="none"/>
+            <path d="M12 18c1 1.5 2.5 2 4 2s3-0.5 4-2" stroke-width="1.2" fill="none"/>
+            <circle cx="13" cy="14" r="0.8" fill="currentColor" stroke="none"/>
+            <circle cx="19" cy="14" r="0.8" fill="currentColor" stroke="none"/>
+            <path d="M10 24c2 3 4 5 6 5s4-2 6-5" stroke-width="1.5" fill="none" opacity="0.5"/>
+          </svg>
+        </div>
         <h3 class="service-card-title">マッサージピール</h3>
         <p class="service-card-desc">真皮層<span class="sm">に</span>働きかけコラーゲン生成促進。ハリ・弾力アップ、毛穴・小ジワ改善<span class="sm">で</span>若々しい肌<span class="sm">へ</span>。</p>
         <a href="#peel" class="service-card-link">詳しく見る &rarr;</a>
@@ -1327,6 +1464,11 @@ ul { list-style: none; }
   </div>
 </section>
 
+<!-- [1] Wave: B2C area → Mid CTA -->
+<svg class="wave-divider" viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+  <path d="M0,20 C480,55 960,5 1440,35 L1440,60 L0,60Z" fill="#3D3329"/>
+</svg>
+
 <!-- ===== Mid CTA ===== -->
 <section class="mid-cta" id="mid-cta">
   <div class="container fade-in">
@@ -1337,6 +1479,11 @@ ul { list-style: none; }
     </a>
   </div>
 </section>
+
+<!-- [1] Wave: Mid CTA → Trust -->
+<svg class="wave-divider" viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+  <path d="M0,25 C360,55 1080,5 1440,30 L1440,60 L0,60Z" fill="#FAF7F2"/>
+</svg>
 
 <!-- ===== Trust ===== -->
 <section class="section-pad" id="trust">
@@ -1368,6 +1515,11 @@ ul { list-style: none; }
     </div>
   </div>
 </section>
+
+<!-- [1] Wave: Trust → Corporate -->
+<svg class="wave-divider" viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+  <path d="M0,35 C480,5 960,55 1440,20 L1440,60 L0,60Z" fill="#2C2520"/>
+</svg>
 
 <!-- ===== Corporate Section ===== -->
 <section class="corporate section-pad" id="corporate">
@@ -1468,6 +1620,11 @@ ul { list-style: none; }
   </div>
 </section>
 
+<!-- [1] Wave: Corporate → Owner -->
+<svg class="wave-divider" viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+  <path d="M0,30 C360,5 720,55 1440,25 L1440,60 L0,60Z" fill="#F5EFE6"/>
+</svg>
+
 <!-- ===== Owner ===== -->
 <section class="owner section-pad" id="owner">
   <div class="container">
@@ -1499,7 +1656,7 @@ ul { list-style: none; }
 </section>
 
 <!-- ===== FAQ ===== -->
-<section class="section-pad" id="faq" style="background:var(--bg-alt);">
+<section class="section-pad" id="faq" style="background:var(--bg);">
   <div class="container">
     <p class="section-label text-center fade-in">FAQ</p>
     <h2 class="section-title text-center fade-in">よくある<span class="sm">ご</span>質問</h2>
@@ -1560,7 +1717,7 @@ ul { list-style: none; }
   </div>
 </section>
 
-<!-- ===== Final CTA ===== -->
+<!-- ===== [11] Final CTA ===== -->
 <section class="final-cta" id="final-cta">
   <div class="container fade-in">
     <p class="section-label">Start Your Journey</p>
@@ -1573,13 +1730,14 @@ ul { list-style: none; }
   </div>
 </section>
 
-<!-- ===== FOOTER ===== -->
+<!-- ===== FOOTER [12] ===== -->
 <footer class="footer">
   <div class="container">
     <div class="footer-brand">TENTEKILABO</div>
     <div class="footer-brand-sub">テンテキラボ島原</div>
     <div class="footer-links">
       <a href="https://www.instagram.com/tentekilabo_shimabara/" target="_blank" rel="noopener" class="footer-link">
+        <!-- [12] Instagram SVG icon -->
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
         Instagram
       </a>
